@@ -1,28 +1,32 @@
-# FitLog
+# FitLog 3.0
 
-Lokale Fitness-PWA für Gewicht, Supplements, Kalorien, Protein, Schritte, Wasser, Schlaf und Training.
+Lokale Fitness-PWA für Gewicht, Ernährung, Supplements, Workouts und Kraftentwicklung.
 
-## GitHub Pages veröffentlichen
+## Erweiterung in Version 3.0
+- Workout-Vorlagen speichern, starten und löschen
+- Vorlagen übernehmen auf Wunsch die letzte Satzstruktur
+- letzte Leistung direkt bei jeder Übung im Workout
+- frei definierbarer Wiederholungsbereich pro Übung
+- frei definierbarer Gewichtssprung pro Übung
+- automatische Progressionshinweise
+- persönliche Bestleistungen / PR-Übersicht
+- Pausentimer mit 60, 90 oder 120 Sekunden
+- Pausentimer bleibt anhand des Endzeitpunkts auch nach App-Wechsel korrekt
+- e1RM-, Top-Gewicht-, Volumen- und Wiederholungsdiagramme
+- JSON-Backup enthält Workout-Vorlagen
+- bestehende Daten aus FitLog 2.0 bleiben beim Datenbank-Upgrade erhalten
 
-1. Neues GitHub Repository erstellen, z. B. `fitlog`.
-2. Den gesamten Inhalt dieses Ordners in die oberste Ebene des Repositories hochladen.
-3. GitHub: **Settings → Pages**.
-4. Unter **Build and deployment**:
-   - Source: **Deploy from a branch**
-   - Branch: **main**
-   - Folder: **/(root)**
-5. Speichern.
+## GitHub aktualisieren
+Entpacke dieses ZIP und lade **alle enthaltenen Dateien** in dein bestehendes `fitlog`-Repository. Vorhandene Dateien ersetzen.
 
-Danach ist die App normalerweise erreichbar unter:
+GitHub Pages bleibt unverändert:
+Settings → Pages → Deploy from a branch → main → /(root)
 
-`https://DEIN-GITHUB-NAME.github.io/fitlog/`
-
-Auf dem iPhone:
-Safari → FitLog öffnen → Teilen → **Zum Home-Bildschirm**.
+Danach auf dem iPhone:
+1. FitLog in Safari öffnen.
+2. Seite neu laden.
+3. Home-Screen-App vollständig schließen und erneut öffnen, falls noch die alte Version angezeigt wird.
 
 ## Datenschutz
-
-Die Fitnessdaten werden nicht in GitHub gespeichert. GitHub hostet nur die statischen App-Dateien.
-Deine persönlichen Einträge liegen lokal in IndexedDB auf deinem Gerät.
-
-Regelmäßig in FitLog unter **Ziele & Daten** ein JSON-Backup exportieren.
+GitHub hostet nur die statischen App-Dateien. Deine persönlichen Fitnessdaten liegen lokal in IndexedDB auf deinem Gerät.
+Vor Updates am besten unter „Ziele & Daten“ ein JSON-Backup exportieren.

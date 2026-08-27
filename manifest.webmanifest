@@ -1,7 +1,7 @@
 {
-  "name": "FitLog – Lokaler Fitness-Tracker",
+  "name": "FitLog – Fitness & Workout Tracker",
   "short_name": "FitLog",
-  "description": "Lokaler Offline-Fitness-Tracker für Gewicht, Ernährung, Supplements und Gewohnheiten.",
+  "description": "Lokaler Offline-Fitness-Tracker für Gewicht, Ernährung, Supplements, Workouts und Kraftentwicklung.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#111827",

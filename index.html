@@ -39,8 +39,15 @@
           <h2>Heute</h2>
           <span id="todayDate" class="muted"></span>
         </div>
-
         <div class="metric-grid" id="todayMetricsGrid"></div>
+
+        <div class="card" id="todayWorkoutCard">
+          <div class="card-title-row">
+            <h3>Training heute</h3>
+            <span id="todayWorkoutBadge" class="pill">Noch offen</span>
+          </div>
+          <div id="todayWorkoutSummary" class="muted small">Noch kein Workout gespeichert.</div>
+        </div>
 
         <div class="card">
           <div class="card-title-row">
@@ -101,6 +108,118 @@
         <div class="card">
           <h3>Einträge</h3>
           <div id="weightList" class="stack-list"></div>
+        </div>
+      </section>
+
+      <section class="view" data-view="training">
+        <div class="card">
+          <div class="card-title-row">
+            <h3>Workout-Vorlagen</h3>
+            <span id="templateCount" class="pill">0</span>
+          </div>
+          <div class="template-row">
+            <select id="workoutTemplateSelect"></select>
+            <button id="loadTemplateBtn" class="primary-btn">Starten</button>
+          </div>
+          <div class="template-actions">
+            <button id="saveTemplateBtn" class="secondary-btn">Aktuellen Entwurf als Vorlage speichern</button>
+            <button id="deleteTemplateBtn" class="secondary-btn delete-btn">Vorlage löschen</button>
+          </div>
+        </div>
+
+        <div class="card rest-card">
+          <div class="card-title-row">
+            <div>
+              <h3>Pausentimer</h3>
+              <div class="muted small">Läuft auch während du Sätze einträgst.</div>
+            </div>
+            <div id="restTimerDisplay" class="timer-display">00:00</div>
+          </div>
+          <div class="timer-actions">
+            <button class="secondary-btn timer-preset" data-rest-seconds="60">1:00</button>
+            <button class="secondary-btn timer-preset" data-rest-seconds="90">1:30</button>
+            <button class="secondary-btn timer-preset" data-rest-seconds="120">2:00</button>
+            <button id="stopRestTimerBtn" class="secondary-btn">Stop</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title-row">
+            <h3>Workout eintragen</h3>
+            <span id="workoutDraftCount" class="pill">0 Übungen</span>
+          </div>
+          <div class="form-grid">
+            <label>Datum<input id="workoutDate" type="date"></label>
+            <label>Workout-Name<input id="workoutName" type="text" placeholder="z. B. Push A"></label>
+          </div>
+
+          <div class="exercise-add-row">
+            <label>Übung
+              <select id="workoutExerciseSelect"></select>
+            </label>
+            <button id="addExerciseToWorkoutBtn" class="secondary-btn">+ Übung</button>
+          </div>
+
+          <div id="workoutBuilder" class="workout-builder empty-state">Lege zuerst Übungen an und füge sie dann zum Workout hinzu.</div>
+          <label class="full-label">Workout-Notiz<textarea id="workoutNote" rows="2" placeholder="z. B. Energie gut, Schulter leicht müde"></textarea></label>
+          <button id="saveWorkoutBtn" class="primary-btn wide">Workout speichern</button>
+          <button id="clearWorkoutDraftBtn" class="secondary-btn wide secondary-spaced">Entwurf leeren</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title-row">
+            <h3>Kraftentwicklung</h3>
+            <select id="strengthExerciseSelect" class="compact-select"></select>
+          </div>
+          <div class="segmented">
+            <button class="segment-btn active" data-strength-metric="e1rm">e1RM</button>
+            <button class="segment-btn" data-strength-metric="weight">Top-Gewicht</button>
+            <button class="segment-btn" data-strength-metric="volume">Volumen</button>
+            <button class="segment-btn" data-strength-metric="reps">Top-Reps</button>
+          </div>
+          <canvas id="strengthChart" height="230"></canvas>
+          <div class="mini-stats" id="strengthStats"></div>
+          <p class="hint">e1RM = geschätztes 1-Wiederholungs-Maximum nach Epley. Es dient als Trendwert und ist kein tatsächlicher Maximaltest.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title-row">
+            <h3>Persönliche Bestleistungen</h3>
+            <span class="pill">PRs</span>
+          </div>
+          <div id="prOverviewList" class="stack-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title-row">
+            <h3>Übungsbibliothek</h3>
+            <span id="exerciseCount" class="pill">0</span>
+          </div>
+          <div class="form-grid">
+            <label>Übungsname<input id="exerciseName" type="text" placeholder="z. B. Bankdrücken"></label>
+            <label>Muskelgruppe
+              <select id="exerciseMuscle">
+                <option>Brust</option><option>Rücken</option><option>Schultern</option><option>Bizeps</option>
+                <option>Trizeps</option><option>Beine</option><option>Gluteus</option><option>Core</option><option>Ganzkörper</option><option>Sonstiges</option>
+              </select>
+            </label>
+            <label>Tracking
+              <select id="exerciseTracking">
+                <option value="weight">Gewicht + Wiederholungen</option>
+                <option value="reps">Nur Wiederholungen</option>
+              </select>
+            </label>
+            <label>Rep-Bereich min.<input id="exerciseRepMin" type="number" inputmode="numeric" min="1" max="50" value="6"></label>
+            <label>Rep-Bereich max.<input id="exerciseRepMax" type="number" inputmode="numeric" min="1" max="100" value="10"></label>
+            <label>Steigerung<input id="exerciseIncrement" type="number" inputmode="decimal" min="0.5" step="0.5" value="2.5" placeholder="kg"></label>
+          </div>
+          <button id="addExerciseBtn" class="primary-btn wide">Übung hinzufügen</button>
+          <div id="exerciseList" class="stack-list exercise-library"></div>
+        </div>
+
+        <div class="card">
+          <h3>Workout-Historie</h3>
+          <div id="workoutHistoryList" class="stack-list"></div>
         </div>
       </section>
 
@@ -199,14 +318,15 @@
         <div class="card">
           <h3>Über FitLog</h3>
           <p class="muted">Offline-fähige PWA. Keine Anmeldung, kein Tracking, kein Server-Backend.</p>
-          <p class="muted small">Version 1.0</p>
+          <p class="muted small">Version 3.0 · Progression & Templates</p>
         </div>
       </section>
     </main>
 
-    <nav class="bottom-nav">
+    <nav class="bottom-nav six">
       <button class="nav-btn active" data-target="today"><span>⌂</span><small>Heute</small></button>
       <button class="nav-btn" data-target="weight"><span>⚖</span><small>Gewicht</small></button>
+      <button class="nav-btn" data-target="training"><span>▰</span><small>Training</small></button>
       <button class="nav-btn" data-target="supplements"><span>✚</span><small>Supps</small></button>
       <button class="nav-btn" data-target="history"><span>⌁</span><small>Verlauf</small></button>
       <button class="nav-btn" data-target="settings"><span>⚙</span><small>Ziele</small></button>
