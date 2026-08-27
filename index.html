@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="FitLog" />
+  <title>FitLog</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">DEIN FITNESS-TRACKER</div>
+        <h1 id="pageTitle">Heute</h1>
+      </div>
+      <button id="themeBtn" class="icon-btn" aria-label="Darstellung wechseln">◐</button>
+    </header>
+
+    <main id="app">
+      <section class="view active" data-view="today">
+        <div class="hero-card">
+          <div>
+            <div class="muted">Aktuelles Gewicht</div>
+            <div class="hero-value" id="dashWeight">–</div>
+            <div class="trend" id="dashWeightTrend">Noch keine Daten</div>
+          </div>
+          <div class="progress-ring-wrap">
+            <div class="progress-ring" id="weightProgressRing"><span id="weightProgressText">–</span></div>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <h2>Heute</h2>
+          <span id="todayDate" class="muted"></span>
+        </div>
+
+        <div class="metric-grid" id="todayMetricsGrid"></div>
+
+        <div class="card">
+          <div class="card-title-row">
+            <h3>Tag eintragen</h3>
+            <button id="saveTodayBtn" class="primary-btn">Speichern</button>
+          </div>
+          <div class="form-grid">
+            <label>Kalorien<input id="todayCalories" type="number" inputmode="decimal" placeholder="kcal"></label>
+            <label>Protein<input id="todayProtein" type="number" inputmode="decimal" placeholder="g"></label>
+            <label>Schritte<input id="todaySteps" type="number" inputmode="numeric" placeholder="Schritte"></label>
+            <label>Wasser<input id="todayWater" type="number" inputmode="decimal" step="0.1" placeholder="Liter"></label>
+            <label>Schlaf<input id="todaySleep" type="number" inputmode="decimal" step="0.1" placeholder="Stunden"></label>
+            <label class="toggle-label">Training
+              <span class="toggle-wrap">
+                <input id="todayWorkout" type="checkbox">
+                <span class="toggle-ui"></span>
+              </span>
+            </label>
+          </div>
+          <label class="full-label">Notiz<textarea id="todayNote" rows="3" placeholder="Wie war dein Tag?"></textarea></label>
+        </div>
+
+        <div class="card">
+          <div class="card-title-row">
+            <h3>Supplements heute</h3>
+            <span id="suppTodaySummary" class="pill">0/0</span>
+          </div>
+          <div id="suppTodayList" class="stack-list empty-state">Noch keine Supplements angelegt.</div>
+        </div>
+      </section>
+
+      <section class="view" data-view="weight">
+        <div class="card">
+          <h3>Gewicht eintragen</h3>
+          <div class="form-grid">
+            <label>Datum<input id="weightDate" type="date"></label>
+            <label>Gewicht<input id="weightKg" type="number" inputmode="decimal" step="0.1" placeholder="kg"></label>
+            <label>Körperfett optional<input id="weightBodyfat" type="number" inputmode="decimal" step="0.1" placeholder="%"></label>
+          </div>
+          <label class="full-label">Notiz<textarea id="weightNote" rows="2" placeholder="z. B. morgens nüchtern"></textarea></label>
+          <button id="saveWeightBtn" class="primary-btn wide">Gewicht speichern</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title-row">
+            <h3>Gewichtsverlauf</h3>
+            <select id="weightRange" class="compact-select">
+              <option value="30">30 Tage</option>
+              <option value="90">90 Tage</option>
+              <option value="365">1 Jahr</option>
+              <option value="all">Alle</option>
+            </select>
+          </div>
+          <canvas id="weightChart" height="220"></canvas>
+          <div class="mini-stats" id="weightStats"></div>
+        </div>
+
+        <div class="card">
+          <h3>Einträge</h3>
+          <div id="weightList" class="stack-list"></div>
+        </div>
+      </section>
+
+      <section class="view" data-view="supplements">
+        <div class="card">
+          <h3>Supplement hinzufügen</h3>
+          <div class="form-grid">
+            <label>Name<input id="suppName" type="text" placeholder="z. B. Kreatin"></label>
+            <label>Standarddosis<input id="suppDose" type="number" inputmode="decimal" step="0.1" placeholder="5"></label>
+            <label>Einheit
+              <select id="suppUnit">
+                <option>g</option><option>mg</option><option>µg</option><option>IU</option><option>ml</option><option>Stk</option>
+              </select>
+            </label>
+            <label>Rhythmus
+              <select id="suppSchedule">
+                <option value="daily">Täglich</option>
+                <option value="training">Nur Trainingstage</option>
+                <option value="custom">Nach Bedarf</option>
+              </select>
+            </label>
+          </div>
+          <button id="addSuppBtn" class="primary-btn wide">Supplement hinzufügen</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title-row">
+            <h3>Meine Supplements</h3>
+            <span id="suppCount" class="pill">0</span>
+          </div>
+          <div id="suppList" class="stack-list"></div>
+        </div>
+
+        <div class="card">
+          <h3>30-Tage-Einnahme</h3>
+          <div id="suppComplianceList" class="stack-list"></div>
+        </div>
+      </section>
+
+      <section class="view" data-view="history">
+        <div class="card">
+          <div class="card-title-row">
+            <h3>Verlauf</h3>
+            <select id="historyMetric" class="compact-select">
+              <option value="calories">Kalorien</option>
+              <option value="protein">Protein</option>
+              <option value="steps">Schritte</option>
+              <option value="water">Wasser</option>
+              <option value="sleep">Schlaf</option>
+            </select>
+          </div>
+          <canvas id="historyChart" height="230"></canvas>
+        </div>
+
+        <div class="card">
+          <h3>Letzte 30 Tage</h3>
+          <div class="summary-grid" id="historySummary"></div>
+        </div>
+
+        <div class="card">
+          <h3>Tagesprotokoll</h3>
+          <div id="dailyHistoryList" class="stack-list"></div>
+        </div>
+      </section>
+
+      <section class="view" data-view="settings">
+        <div class="card">
+          <h3>Ziele</h3>
+          <div class="form-grid">
+            <label>Startgewicht<input id="goalStartWeight" type="number" step="0.1" placeholder="kg"></label>
+            <label>Zielgewicht<input id="goalTargetWeight" type="number" step="0.1" placeholder="kg"></label>
+            <label>Kalorien<input id="goalCalories" type="number" placeholder="kcal/Tag"></label>
+            <label>Protein<input id="goalProtein" type="number" placeholder="g/Tag"></label>
+            <label>Schritte<input id="goalSteps" type="number" placeholder="pro Tag"></label>
+            <label>Wasser<input id="goalWater" type="number" step="0.1" placeholder="Liter/Tag"></label>
+            <label>Schlaf<input id="goalSleep" type="number" step="0.1" placeholder="Stunden/Tag"></label>
+          </div>
+          <button id="saveGoalsBtn" class="primary-btn wide">Ziele speichern</button>
+        </div>
+
+        <div class="card">
+          <h3>Daten & Backup</h3>
+          <div class="action-stack">
+            <button id="exportBackupBtn" class="secondary-btn">Backup als JSON exportieren</button>
+            <label class="secondary-btn file-btn">Backup importieren<input id="importBackupInput" type="file" accept=".json,application/json"></label>
+            <button id="exportCsvBtn" class="secondary-btn">Alle Daten als CSV exportieren</button>
+          </div>
+          <p class="hint">Die Daten werden lokal auf diesem Gerät gespeichert. Exportiere regelmäßig ein Backup, insbesondere vor einem Gerätewechsel.</p>
+        </div>
+
+        <div class="card danger-card">
+          <h3>Daten löschen</h3>
+          <button id="clearDataBtn" class="danger-btn">Alle lokalen Daten löschen</button>
+        </div>
+
+        <div class="card">
+          <h3>Über FitLog</h3>
+          <p class="muted">Offline-fähige PWA. Keine Anmeldung, kein Tracking, kein Server-Backend.</p>
+          <p class="muted small">Version 1.0</p>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-target="today"><span>⌂</span><small>Heute</small></button>
+      <button class="nav-btn" data-target="weight"><span>⚖</span><small>Gewicht</small></button>
+      <button class="nav-btn" data-target="supplements"><span>✚</span><small>Supps</small></button>
+      <button class="nav-btn" data-target="history"><span>⌁</span><small>Verlauf</small></button>
+      <button class="nav-btn" data-target="settings"><span>⚙</span><small>Ziele</small></button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
